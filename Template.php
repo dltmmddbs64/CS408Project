@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><?php echo $title ?></title>
         <link rel = "stylesheet" type="text/css" href="Styles/StyleSheet.css" />
     </head>
@@ -17,9 +17,9 @@ and open the template in the editor.
             
             <nav id = "navigation">
                 <ul id = "nav">
-                    <li><a bref="index.php">Home</a></li>
-                    <li><a bref="#">Courses</a></li>
-                    <li><a bref="#">Faculty&Staff</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="FacultyStaff.php">Faculty&Staff</a></li>
+                    <li><a href="#">Courses</a></li>
                 </ul>
             </nav>
             
