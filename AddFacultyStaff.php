@@ -27,6 +27,12 @@ $content = "<form action='' method='post'>
         <label for='email'>Email: </label>
         <input type='text' class='inputField' name='txtEmail' /><br/>
         
+        <label for='courses'>Recommended Courses: </label>
+        <input type='text' class='inputField' name='txtCourses' /><br/>
+        
+        <label for='review'>Review: </label>
+        <input type='text' class='inputField' name='txtReview' /><br/>
+
         <input type='submit' value='Submit'>
         
     </fieldset>
