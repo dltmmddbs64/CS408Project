@@ -12,15 +12,15 @@
  * @author MingKie
  */
 class FacultyStaffEntity {
-    public $cat;
+    public $pos;
     public $name;
     public $title;
     public $office;
     public $phone;
     public $email;
     
-    function __construct($cat, $name, $title, $office, $phone, $email) {
-        $this->cat = $cat;
+    function __construct($pos, $name, $title, $office, $phone, $email) {
+        $this->pos = $pos;
         $this->name = $name;
         $this->title = $title;
         $this->office = $office;

@@ -10,9 +10,9 @@ class FacultyStaffController {
         $facultystaffModel = new FacultyStaffModel();
         $result = "<form action = '' method = 'post' width = '200px'>
                     Please select a position:
-                    <select name = 'cats' >
+                    <select name = 'pos' >
                         <option value = '%' >All</option>
-                        ".$this->CreateOptionValues($facultystaffModel->GetFacultyStaffCats()).
+                        ".$this->CreateOptionValues($facultystaffModel->GetFacultyStaffPoss()).
                     "</select>
                     <input type = 'submit' value = 'Search' />
                   </form>";
@@ -32,10 +32,10 @@ class FacultyStaffController {
         return $result;
     }
     
-    function CreateTable($cats)
+    function CreateTable($poss)
     {
         $facultystaffModel = new FacultyStaffModel();
-        $array = $facultystaffModel->GetFacultyStaffByCat($cats);
+        $array = $facultystaffModel->GetFacultyStaffByPos($poss);
         $result = "";
         
         //Generate a table for each facultystaffEntity in array.
@@ -66,6 +66,40 @@ class FacultyStaffController {
                     </table>>";       
         }
         return $result;
+    }
+    
+    function Insert()
+    {
+        
+    }
+    
+    function Update($name)
+    {
+        
+    }
+    
+    function Delete($name)
+    {
+        
+    }
+    
+    
+    function GetByName($name)
+    {
+        $facultystaffModel = new FacultyStaffModel();
+        return $facultystaffModel->GetFacultyStaffByName($name);
+    }
+    
+    function GetByPos($pos)
+    {
+        $facultystaffModel = new FacultyStaffModel();
+        return $facultystaffModel->GetFacultyStaffByPos($pos);
+    }
+    
+    function GetPoss()
+    {
+        $facultystaffModel = new FacultyStaffModel();
+        return $facultystaffModel->GetFacultyStaffPoss();
     }
     
 }

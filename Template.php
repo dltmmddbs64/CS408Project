@@ -20,11 +20,17 @@ and open the template in the editor.
                     <li><a href="index.php">Home</a></li>
                     <li><a href="FacultyStaff.php">Faculty&Staff</a></li>
                     <li><a href="#">Courses</a></li>
+                    <li><a href="Clubs.php">Clubs</a></li>
+                    <li><a href="Management.php">Management</a></li>
                 </ul>
             </nav>
             
             <div id = "content_area">
-                <?php echo $content; ?>
+                <?php 
+                
+                  echo $content;
+                
+                ?>
             </div>
             
             <div id = "sidebar">

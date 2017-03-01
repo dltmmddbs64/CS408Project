@@ -3,10 +3,10 @@ require 'Controller/FacultyStaffController.php';
 
 $controller = new FacultyStaffController();
 
-if(isset($_POST['cats']))
+if(isset($_POST['pos']))
 {
     //Fille page with faculty and staff of the selected position
-    $table = $controller->CreateTable($_POST['cats']);
+    $table = $controller->CreateTable($_POST['pos']);
 }
 else
 {
@@ -17,6 +17,7 @@ else
 //Output page data
 $title = 'Faculty & Staff';
 $content = $controller->CreateFacultyStaffDropdownList(). $table;
+//$isClubsPage = false;
 
 include 'Template.php';
 ?>

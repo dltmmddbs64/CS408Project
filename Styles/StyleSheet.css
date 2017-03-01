@@ -30,6 +30,9 @@ body p
 
 #banner
 {
+    backgroud-image: url(C:\xampp\htdocs\CS408Project\Images\coffeebanner.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
     border: 5px solid #dedede;
     height: 200px;
 }
@@ -63,6 +66,7 @@ footer
     text-align: center;
     color: #fff;
     text-shadow: 0.1em 0.1em #333;
+    background-image: url(../Images/bar_background.png);
 }
 
 #navigation
@@ -71,6 +75,7 @@ footer
     border: 3px solid #E3E3E3;
     margin-top: 20px;
     text-shadow: 0.1em 0.1em #333;
+    background-image: url(../Images/bar_background.png);
 }
 
 #nav
