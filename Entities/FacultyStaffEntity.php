@@ -18,14 +18,18 @@ class FacultyStaffEntity {
     public $office;
     public $phone;
     public $email;
-    
-    function __construct($pos, $name, $title, $office, $phone, $email) {
+    public $courses;
+    public $review;
+    function __construct($pos, $name, $title, $office, $phone, $email, $courses, $review) {
         $this->pos = $pos;
         $this->name = $name;
         $this->title = $title;
         $this->office = $office;
         $this->phone = $phone;
         $this->email = $email;
+        $this->courses = $courses;
+        $this->review = $review;
+                
     }
 
 }

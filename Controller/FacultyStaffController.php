@@ -63,6 +63,14 @@ class FacultyStaffController {
                         <th>Email: </th>
                         <td>$person->email</td>
                     </tr>
+                    <tr>
+                        <th>Recommended Courses: </th>
+                        <td>$person->courses</td>
+                    </tr>
+                    <tr>
+                        <th>Review: </th>
+                        <td>$person->review</td>
+                    </tr>
                     </table>>";       
         }
         return $result;

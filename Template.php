@@ -34,7 +34,15 @@ and open the template in the editor.
             </div>
             
             <div id = "sidebar">
-                
+                <?php
+                $resource = '<h3>Resources</h3>'
+                    . '<a href="https://www.cpp.edu/~sci/computer-science/undergraduate-program/student-resources.shtml"> Student Resources</a><br/>'
+                    . '<a href="https://www.cpp.edu/~sci/computer-science/undergraduate-program/employment-opportunities.shtml"> Employment Opportunities</a><br/>'
+                    . '<a href="https://www.cpp.edu/~sci/computer-science/undergraduate-program/scholarship-opportunities.shtml"> Scholarship Opportunities</a><br/>'
+                    . '<a href="https://www.cpp.edu/~sci/computer-science/undergraduate-program/research-opportunities.shtml"> Research Opportunities</a><br/>'
+                    . '<a href="https://www.cpp.edu/~sci/computer-science/advising-and-procedures/index.shtml"> Advising & Procedures</a><br/>';
+                echo $resource;
+                ?>
             </div>
             
             <footer>

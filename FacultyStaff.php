@@ -17,7 +17,7 @@ else
 //Output page data
 $title = 'Faculty & Staff';
 $content = $controller->CreateFacultyStaffDropdownList(). $table;
-//$isClubsPage = false;
+
 
 include 'Template.php';
 ?>
