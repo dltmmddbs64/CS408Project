@@ -30,9 +30,7 @@ body p
 
 #banner
 {
-    backgroud-image: url(C:\xampp\htdocs\CS408Project\Images\coffeebanner.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    
     border: 5px solid #dedede;
     height: 200px;
 }
@@ -110,5 +108,34 @@ footer
 #nav a:hover
 {
     color: lightblue;
+}
+
+.inputField
+{
+    width: 280px;
+    padding: 4px;
+}
+
+label
+{
+    float: left;
+    width: 100px;
+    font-weight: bold;
+}
+
+.overViewTable
+{
+    width: 700px;
+}
+
+.overViewTable tr
+{
+    padding: 4px
+}
+
+.overViewTable td
+{
+    padding: 4px;
+    border: 1px solid #E3E3E3;
 }
 

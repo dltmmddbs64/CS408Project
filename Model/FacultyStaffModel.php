@@ -96,49 +96,54 @@ class FacultyStaffModel {
     
     function Insert(FacultyStaffEntity $person)
     {
-        $query = sprintf("INSERT INTO facultystaff"
-                . "(pos, name, title, office, phone, email, courses, reivew)"
-                . "VALUES"
-                . "'$s', '$s', '$s', '$s', '$s', '$s')",
-                mysqli_real_escape_string($person->pos),
-                mysqli_real_escape_string($person->name),
-                mysqli_real_escape_string($person->title),
-                mysqli_real_escape_string($person->office),
-                mysqli_real_escape_string($person->phone),
-                mysqli_real_escape_string($person->email),
-                mysqli_real_escape_string($person->courses),
-                mysqli_real_escape_string($person->review));
-        $this->PerformQuery($query);
+        require 'Credentials.php';
+        $link = mysqli_connect($host, $user, $passwd, $database) or die(mysqli_error($link));
+        
+        $query = sprintf("INSERT INTO facultystaff
+                (pos, name, title, office, phone, email, courses, review)
+                VALUES
+                ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                mysqli_real_escape_string($link, $person->pos),
+                mysqli_real_escape_string($link, $person->name),
+                mysqli_real_escape_string($link, $person->title),
+                mysqli_real_escape_string($link, $person->office),
+                mysqli_real_escape_string($link, $person->phone),
+                mysqli_real_escape_string($link, $person->email),
+                mysqli_real_escape_string($link, $person->courses),
+                mysqli_real_escape_string($link, $person->review));
+        $this->PerformQuery($query, $link, $database);
         
     }
     
     function Update($name, FacultyStaffEntity $person)
     {
+        require 'Credentials.php';
+        $link = mysqli_connect($host, $user, $passwd, $database) or die(mysqli_error($link));
         
-        $query = sprintf("UPDATE facultystaff SET"
-                . "pos = '%s', title = '%s', office = '%s', phone = '%s', email = '%s', courses = '%s', review = '%s'"
-                . "WHERE name LIKE '$name'",
-                mysqli_real_escape_string($person->pos),
-                mysqli_real_escape_string($person->title),
-                mysqli_real_escape_string($person->office),
-                mysqli_real_escape_string($person->phone),
-                mysqli_real_escape_string($person->email),
-                mysqli_real_escape_string($person->courses),
-                mysqli_real_escape_string($person->review));
-                
-        $this->PerformQuery($query);
+        $query = sprintf("UPDATE facultystaff SET
+                pos = '%s', name= '%s', title = '%s', office = '%s', phone = '%s', email = '%s', courses = '%s', review = '%s'
+                WHERE name LIKE '$name'",
+                mysqli_real_escape_string($link, $person->pos),
+                mysqli_real_escape_string($link, $person->name),
+                mysqli_real_escape_string($link, $person->title),
+                mysqli_real_escape_string($link, $person->office),
+                mysqli_real_escape_string($link, $person->phone),
+                mysqli_real_escape_string($link, $person->email),
+                mysqli_real_escape_string($link, $person->courses),
+                mysqli_real_escape_string($link, $person->review));
+        $this->PerformQuery($query, $link, $database);
     }
     
     function Delete($name)
     {
+        require 'Credentials.php';
+        $link = mysqli_connect($host, $user, $passwd, $database) or die(mysqli_error($link));
         $query ="DELETE FROM facultystaff WHERE name LIKE '$name'";
         $this->PerformQuery($query);
     }
     
-    function PerformQuery($query)
+    function PerformQuery($query, $link, $database)
     {
-        require 'Credentials.php';
-        $link = mysqli_connect($host, $user, $passwd, $database) or die(mysqli_error($link));
         mysqli_select_db($link, $database);
        
         mysqli_query($link, $query) or die(mysqli_error($link));

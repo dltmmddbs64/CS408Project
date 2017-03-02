@@ -28,8 +28,7 @@ class FacultyStaffEntity {
         $this->phone = $phone;
         $this->email = $email;
         $this->courses = $courses;
-        $this->review = $review;
-                
+        $this->review = $review;        
     }
 
 }

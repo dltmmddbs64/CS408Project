@@ -3,6 +3,7 @@
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
+
 -->
 <html>
     <head>
@@ -26,11 +27,9 @@ and open the template in the editor.
             </nav>
             
             <div id = "content_area">
-                <?php 
-                
-                  echo $content;
-                
-                ?>
+                <?php
+                 echo $content;
+                 ?>
             </div>
             
             <div id = "sidebar">
@@ -44,6 +43,7 @@ and open the template in the editor.
                 echo $resource;
                 ?>
             </div>
+            
             
             <footer>
                 <p>All rights reserved</p>

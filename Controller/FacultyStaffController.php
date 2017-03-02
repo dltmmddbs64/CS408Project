@@ -1,9 +1,56 @@
+<script>
+function showConfirm()
+{
+    
+}
+</script>
+
 <?php
 
 require ("Model/FacultyStaffModel.php");
 
 //Contains non-database related function for the FacultyStaff page.
 class FacultyStaffController {
+    
+    function CreateOverviewTable()
+    {
+        $result = ""
+                . "<table class='overViewTable'>"
+                . "     <tr>"
+                . "         <td></td>"
+                . "         <td></td>"
+                . "         <td><b>Position</b></td>"
+                . "         <td><b>Name</b></td>"
+                . "         <td><b>Title</b></td>"
+                . "         <td><b>Office</b></td>"
+                . "         <td><b>Phone</b></td>"
+                . "         <td><b>Email</b></td>"
+                . "         <td><b>Recommend Courses</b></td>"
+                . "         <td><b>Review</b></td>"
+                . "     </tr>";
+                
+        $personArray = $this->GetByPos('%');
+
+        foreach ($personArray as $key => $value)
+        {
+            $result = $result . 
+                    "<tr> "
+                    . "     <td><a href='AddFacultyStaff.php?update=$value->name'>Update</a></td>"
+                    . "     <td><a href=''>Delete</a></td>"
+                    . "     <td>$value->pos</td>"
+                    . "     <td>$value->name</td>"
+                    . "     <td>$value->title</td>"
+                    . "     <td>$value->office</td>"
+                    . "     <td>$value->phone</td>"
+                    . "     <td>$value->email</td>"
+                    . "     <td>$value->courses</td>"
+                    . "     <td>$value->review</td>"
+                    . "</tr>";
+        }
+        
+        $result = $result . "</table>";
+        return $result;
+    }
     
     function CreateFacultyStaffDropdownList() 
     {
@@ -64,7 +111,7 @@ class FacultyStaffController {
                         <td>$person->email</td>
                     </tr>
                     <tr>
-                        <th>Recommended Courses: </th>
+                        <th>Recommend Courses: </th>
                         <td>$person->courses</td>
                     </tr>
                     <tr>
@@ -78,12 +125,34 @@ class FacultyStaffController {
     
     function Insert()
     {
+        $pos = $_POST["ddlPos"];
+        $name = $_POST["txtName"];
+        $title = $_POST["txtTitle"];
+        $office = $_POST["txtOffice"];
+        $phone = $_POST["txtPhone"];
+        $email = $_POST["txtEmail"];
+        $courses = $_POST["txtCourses"];
+        $review = $_POST["txtReview"];
         
+        $person = new FacultyStaffEntity($pos, $name, $title, $office, $phone, $email, $courses, $review);
+        $personModel = new FacultyStaffModel();
+        $personModel->Insert($person);
     }
     
     function Update($name)
     {
+        $pos = $_POST["ddlPos"];
+        $name = $_POST["txtName"];
+        $title = $_POST["txtTitle"];
+        $office = $_POST["txtOffice"];
+        $phone = $_POST["txtPhone"];
+        $email = $_POST["txtEmail"];
+        $courses = $_POST["txtCourses"];
+        $review = $_POST["txtReview"];
         
+        $person = new FacultyStaffEntity($pos, $name, $title, $office, $phone, $email, $courses, $review);
+        $personModel = new FacultyStaffModel();
+        $personModel->Update($name, $person);
     }
     
     function Delete($name)
