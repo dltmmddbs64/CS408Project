@@ -1,4 +1,7 @@
 <?php
+//FacultyStaff page, it displays every info about each Faculty and Staff.
+//Ordered in their unique ID number.
+
 require 'Controller/FacultyStaffController.php';
 
 $controller = new FacultyStaffController();
@@ -17,7 +20,6 @@ else
 //Output page data
 $title = 'Faculty & Staff';
 $content = $controller->CreateFacultyStaffDropdownList(). $table;
-
 
 include 'Template.php';
 ?>

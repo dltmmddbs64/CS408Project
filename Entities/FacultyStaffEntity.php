@@ -1,26 +1,22 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of FacultyStaffEntity
- *
- * @author MingKie
- */
-class FacultyStaffEntity {
-    public $pos;
-    public $name;
-    public $title;
-    public $office;
-    public $phone;
-    public $email;
-    public $courses;
-    public $review;
-    function __construct($pos, $name, $title, $office, $phone, $email, $courses, $review) {
+//To represent each Faculty and Staff object.
+//Each field corresponds to the mySQL database.
+class FacultyStaffEntity 
+{
+    public $id; //Permenant ID number
+    public $pos; //Position
+    public $name; //Name
+    public $title; //Title
+    public $office; //Office number
+    public $phone; //Phone number
+    public $email; //Email address
+    public $courses; //Recommend courses
+    public $review; //Review about them (feedbacks)
+    
+    //Create an object of FacultyStaff
+    function __construct($id, $pos, $name, $title, $office, $phone, $email, $courses, $review) {
+        
+        $this->id = $id;
         $this->pos = $pos;
         $this->name = $name;
         $this->title = $title;
@@ -28,8 +24,8 @@ class FacultyStaffEntity {
         $this->phone = $phone;
         $this->email = $email;
         $this->courses = $courses;
-        $this->review = $review;        
+        $this->review = $review;  
+        
     }
-
 }
 ?>

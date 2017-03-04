@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-
+Skeleton structure and overall layout of Web-site.
 -->
 <html>
     <head>
@@ -43,8 +40,7 @@ and open the template in the editor.
                 echo $resource;
                 ?>
             </div>
-            
-            
+ 
             <footer>
                 <p>All rights reserved</p>
             </footer>

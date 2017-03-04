@@ -1,7 +1,13 @@
 <script>
-function showConfirm()
+//Display a confirmation box when trying to delete an object.
+function showConfirm(id)
 {
+    //Build the confirmation box
+    var c = confirm("Are you sure you wish to delete?");
     
+    //If true, delete it and refresh.
+    if(c)
+        window.location = "FacultyStaffOverview.php?delete=" + id;
 }
 </script>
 
@@ -10,8 +16,10 @@ function showConfirm()
 require ("Model/FacultyStaffModel.php");
 
 //Contains non-database related function for the FacultyStaff page.
-class FacultyStaffController {
-    
+class FacultyStaffController 
+{
+    //Creates overview table that is displayed on FacultyStaffOverview page.
+    //Shows a brief info.
     function CreateOverviewTable()
     {
         $result = ""
@@ -19,14 +27,12 @@ class FacultyStaffController {
                 . "     <tr>"
                 . "         <td></td>"
                 . "         <td></td>"
+                . "         <td><b>ID</b></td>"
                 . "         <td><b>Position</b></td>"
                 . "         <td><b>Name</b></td>"
                 . "         <td><b>Title</b></td>"
                 . "         <td><b>Office</b></td>"
-                . "         <td><b>Phone</b></td>"
                 . "         <td><b>Email</b></td>"
-                . "         <td><b>Recommend Courses</b></td>"
-                . "         <td><b>Review</b></td>"
                 . "     </tr>";
                 
         $personArray = $this->GetByPos('%');
@@ -35,16 +41,15 @@ class FacultyStaffController {
         {
             $result = $result . 
                     "<tr> "
-                    . "     <td><a href='AddFacultyStaff.php?update=$value->name'>Update</a></td>"
-                    . "     <td><a href=''>Delete</a></td>"
+                    . "     <td><a href='AddFacultyStaff.php?update=$value->id'>Update</a></td>"
+                    . "     <td><a href='#' onclick='showConfirm($value->id)'>Delete</a></td>"
+                    . "     <td>$value->id</td>"
                     . "     <td>$value->pos</td>"
                     . "     <td>$value->name</td>"
                     . "     <td>$value->title</td>"
                     . "     <td>$value->office</td>"
-                    . "     <td>$value->phone</td>"
-                    . "     <td>$value->email</td>"
-                    . "     <td>$value->courses</td>"
-                    . "     <td>$value->review</td>"
+                    . "     <td>$value->email</td>"  
+             
                     . "</tr>";
         }
         
@@ -52,14 +57,15 @@ class FacultyStaffController {
         return $result;
     }
     
+    //Dropdown list for positions: All, Permenant Faculty, Lecturers, and Staff.
     function CreateFacultyStaffDropdownList() 
     {
-        $facultystaffModel = new FacultyStaffModel();
+        $personModel = new FacultyStaffModel();
         $result = "<form action = '' method = 'post' width = '200px'>
                     Please select a position:
                     <select name = 'pos' >
                         <option value = '%' >All</option>
-                        ".$this->CreateOptionValues($facultystaffModel->GetFacultyStaffPoss()).
+                        ".$this->CreateOptionValues($personModel->GetFacultyStaffPoss()).
                     "</select>
                     <input type = 'submit' value = 'Search' />
                   </form>";
@@ -67,6 +73,7 @@ class FacultyStaffController {
         return $result;
     }
     
+    //Returns every element of an array.
     function CreateOptionValues(array $valueArray)
     {
         $result = "";
@@ -79,10 +86,12 @@ class FacultyStaffController {
         return $result;
     }
     
+    //Creates table for FacultyStaff page.
+    //Shows every info.
     function CreateTable($poss)
     {
-        $facultystaffModel = new FacultyStaffModel();
-        $array = $facultystaffModel->GetFacultyStaffByPos($poss);
+        $personModel = new FacultyStaffModel();
+        $array = $personModel->GetFacultyStaffByPos($poss);
         $result = "";
         
         //Generate a table for each facultystaffEntity in array.
@@ -123,6 +132,7 @@ class FacultyStaffController {
         return $result;
     }
     
+    //Insert a new member to mySQL.
     function Insert()
     {
         $pos = $_POST["ddlPos"];
@@ -134,12 +144,13 @@ class FacultyStaffController {
         $courses = $_POST["txtCourses"];
         $review = $_POST["txtReview"];
         
-        $person = new FacultyStaffEntity($pos, $name, $title, $office, $phone, $email, $courses, $review);
+        $person = new FacultyStaffEntity(-1, $pos, $name, $title, $office, $phone, $email, $courses, $review);
         $personModel = new FacultyStaffModel();
         $personModel->Insert($person);
     }
     
-    function Update($name)
+    //Update an existing member of mySQL.
+    function Update($id)
     {
         $pos = $_POST["ddlPos"];
         $name = $_POST["txtName"];
@@ -150,35 +161,37 @@ class FacultyStaffController {
         $courses = $_POST["txtCourses"];
         $review = $_POST["txtReview"];
         
-        $person = new FacultyStaffEntity($pos, $name, $title, $office, $phone, $email, $courses, $review);
+        $person = new FacultyStaffEntity($id, $pos, $name, $title, $office, $phone, $email, $courses, $review);
         $personModel = new FacultyStaffModel();
-        $personModel->Update($name, $person);
+        $personModel->Update($id, $person);
     }
     
-    function Delete($name)
+    //Delete an existing member of mySQL.
+    function Delete($id)
     {
-        
+        $personModel = new FacultyStaffModel();
+        $personModel->Delete($id);
     }
     
-    
-    function GetByName($name)
+    //Returns corresponding member with that ID number.
+    function GetById($id)
     {
-        $facultystaffModel = new FacultyStaffModel();
-        return $facultystaffModel->GetFacultyStaffByName($name);
+        $personModel = new FacultyStaffModel();
+        return $personModel->GetFacultyStaffById($id);
     }
     
+    //Returns every memeber with that position.
     function GetByPos($pos)
     {
-        $facultystaffModel = new FacultyStaffModel();
-        return $facultystaffModel->GetFacultyStaffByPos($pos);
+        $personModel = new FacultyStaffModel();
+        return $personModel->GetFacultyStaffByPos($pos);
     }
     
+    //Returns every position.
     function GetPoss()
     {
-        $facultystaffModel = new FacultyStaffModel();
-        return $facultystaffModel->GetFacultyStaffPoss();
-    }
-    
+        $personModel = new FacultyStaffModel();
+        return $personModel->GetFacultyStaffPoss();
+    }   
 }
-
 ?>

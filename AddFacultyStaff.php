@@ -1,16 +1,24 @@
-
 <?php
+//AddFacultyStaff page, it display a table that lets the 
+//user to enter info about a new member and adds it to 
+//the existing mySQL. Or if the user selected 'Update',
+//then it shows a slightly different table.
 
 require './Controller/FacultyStaffController.php';
+
 $controller = new FacultyStaffController();
+
 $title = "Add a new Faculty or Staff";
 
+//If the user selected 'Update' from FacultyStaffOverview page,
+//it shows existing info about the selected member and the user
+//can edit them.
 if(isset($_GET["update"]))
 {
-    $person = $controller->GetByName($_GET["update"]);
+    $person = $controller->GetById($_GET["update"]);
     $content = "<form action='' method='post'>
     <fieldset>
-        <legend> Add a new Faculty or Staff</legend>
+        <legend>Edit existing Faculty or Staff</legend>
         <label for='pos'>Position: </label>
         <select class='inputField' name='ddlPos'>
             <option value='%'>All</option>"
@@ -43,11 +51,13 @@ if(isset($_GET["update"]))
     </fieldset>
 </form>";
 }
+//If the user selected 'Add' from Management page,
+//the user can add a new member.
 else 
 {
     $content = "<form action='' method='post'>
     <fieldset>
-        <legend> Add a new Faculty or Staff</legend>
+        <legend>Add a new Faculty or Staff</legend>
         <label for='pos'>Position: </label>
         <select class='inputField' name='ddlPos'>
             <option value='%'>All</option>"
@@ -81,6 +91,9 @@ else
 </form>";
 }
 
+//Checks if the user selected 'Update' then
+//update the existing one instead of creating
+//a new object member.
 if(isset($_GET["update"]))
 {
     if(isset($_POST["txtName"]))

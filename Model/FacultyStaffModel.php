@@ -1,10 +1,9 @@
 <?php
-
 require ("Entities/FacultyStaffEntity.php");
 
 //Contains database related code for the FacultyStaff page.
-class FacultyStaffModel {
-    
+class FacultyStaffModel 
+{
     //Get all positions for profs, staff, and faculty from the database and return them in an array.
     function GetFacultyStaffPoss()
     {
@@ -25,10 +24,9 @@ class FacultyStaffModel {
         //Close connection and return result.
         mysqli_close($link);
         return $poss;
-        
     }
     
-    //Get facultystaffEntity objects from the database and return them in an array.
+    //Get facultystaffEntity objects by their position from the database and return them in an array.
     function GetFacultyStaffByPos($pos) 
     {
         require 'Credentials.php';
@@ -37,6 +35,7 @@ class FacultyStaffModel {
         $link = mysqli_connect($host, $user, $passwd, $database) or die(mysqli_error($link));
         mysqli_select_db($link, $database);
         
+        //Define query.
         $query = "SELECT * FROM facultystaff WHERE pos LIKE '$pos'";
         $result = mysqli_query($link, $query) or die(mysqli_error($link));
         $facultystaffArray = array();
@@ -44,16 +43,17 @@ class FacultyStaffModel {
         //Get data from database.
         while($row = mysqli_fetch_array($result))
         {
-            $pos = $row[0];
-            $name = $row[1];
-            $title = $row[2];
-            $office = $row[3];
-            $phone = $row[4];
-            $email = $row[5];
-            $courses = $row[6];
-            $review = $row[7];
+            $id = $row[0];
+            $pos = $row[1];
+            $name = $row[2];
+            $title = $row[3];
+            $office = $row[4];
+            $phone = $row[5];
+            $email = $row[6];
+            $courses = $row[7];
+            $review = $row[8];
             
-            $facultystaff = new FacultyStaffEntity($pos, $name, $title, $office, $phone, $email, $courses, $review);
+            $facultystaff = new FacultyStaffEntity($id, $pos, $name, $title, $office, $phone, $email, $courses, $review);
             array_push($facultystaffArray, $facultystaff);
         }
         
@@ -62,7 +62,8 @@ class FacultyStaffModel {
         return $facultystaffArray;  
     }
     
-    function GetFacultyStaffByName($name) 
+    //Get facultystaffEntity objects by their ID number.
+    function GetFacultyStaffById($id) 
     {
         require 'Credentials.php';
         
@@ -70,23 +71,24 @@ class FacultyStaffModel {
         $link = mysqli_connect($host, $user, $passwd, $database) or die(mysqli_error($link));
         mysqli_select_db($link, $database);
         
-        $query = "SELECT * FROM facultystaff WHERE name LIKE '$name'";
+        //Define query.
+        $query = "SELECT * FROM facultystaff WHERE id = $id";
         $result = mysqli_query($link, $query) or die(mysqli_error($link));
         
         //Get data from database.
         while($row = mysqli_fetch_array($result))
         {
-            $pos = $row[0];
-            $name = $row[1];
-            $title = $row[2];
-            $office = $row[3];
-            $phone = $row[4];
-            $email = $row[5];
-            $courses = $row[6];
-            $review = $row[7];
+            $pos = $row[1];
+            $name = $row[2];
+            $title = $row[3];
+            $office = $row[4];
+            $phone = $row[5];
+            $email = $row[6];
+            $courses = $row[7];
+            $review = $row[8];
             
-            $facultystaff = new FacultyStaffEntity($pos, $name, $title, $office, $phone, $email, $courses, $review);
-
+            //Create facultystaff.
+            $facultystaff = new FacultyStaffEntity($id, $pos, $name, $title, $office, $phone, $email, $courses, $review);
         }
         
         //Close connection and return result
@@ -94,11 +96,14 @@ class FacultyStaffModel {
         return $facultystaff; 
     }
     
+    //Insert a new member to mySQL.
     function Insert(FacultyStaffEntity $person)
     {
+        //Open connection and select databse.
         require 'Credentials.php';
         $link = mysqli_connect($host, $user, $passwd, $database) or die(mysqli_error($link));
         
+        //Define query.
         $query = sprintf("INSERT INTO facultystaff
                 (pos, name, title, office, phone, email, courses, review)
                 VALUES
@@ -111,18 +116,22 @@ class FacultyStaffModel {
                 mysqli_real_escape_string($link, $person->email),
                 mysqli_real_escape_string($link, $person->courses),
                 mysqli_real_escape_string($link, $person->review));
-        $this->PerformQuery($query, $link, $database);
         
+        //Execute query and close connection.
+        $this->PerformQuery($query, $link, $database); 
     }
     
-    function Update($name, FacultyStaffEntity $person)
+    //Update the existing mySQL.
+    function Update($id, FacultyStaffEntity $person)
     {
+        //Open connection and select databse.
         require 'Credentials.php';
         $link = mysqli_connect($host, $user, $passwd, $database) or die(mysqli_error($link));
         
+        //Define query.
         $query = sprintf("UPDATE facultystaff SET
                 pos = '%s', name= '%s', title = '%s', office = '%s', phone = '%s', email = '%s', courses = '%s', review = '%s'
-                WHERE name LIKE '$name'",
+                WHERE id = $id",
                 mysqli_real_escape_string($link, $person->pos),
                 mysqli_real_escape_string($link, $person->name),
                 mysqli_real_escape_string($link, $person->title),
@@ -131,24 +140,31 @@ class FacultyStaffModel {
                 mysqli_real_escape_string($link, $person->email),
                 mysqli_real_escape_string($link, $person->courses),
                 mysqli_real_escape_string($link, $person->review));
+        
+        //Execute query and close connection.
         $this->PerformQuery($query, $link, $database);
     }
     
-    function Delete($name)
+    //Delete existing data from mySQL.
+    function Delete($id)
     {
+        //Open connection and select databse.
         require 'Credentials.php';
         $link = mysqli_connect($host, $user, $passwd, $database) or die(mysqli_error($link));
-        $query ="DELETE FROM facultystaff WHERE name LIKE '$name'";
-        $this->PerformQuery($query);
+        
+        //Define query.
+        $query ="DELETE FROM facultystaff WHERE id = $id";
+        
+        //Execute query and close connection.
+        $this->PerformQuery($query, $link, $database);
     }
     
+    //Execute query and close connection.
     function PerformQuery($query, $link, $database)
     {
-        mysqli_select_db($link, $database);
-       
+        mysqli_select_db($link, $database); 
         mysqli_query($link, $query) or die(mysqli_error($link));
         mysqli_close($link);
-    }
-    
+    }  
 }
 ?>
