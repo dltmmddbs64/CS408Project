@@ -6,7 +6,6 @@ Skeleton structure and overall layout of Web-site.
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Find a Career</title>
-        <!-- <link rel = "stylesheet" type="text/css" href="Styles/StyleSheet.css" /> -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     </head>
     <body>
@@ -18,7 +17,7 @@ Skeleton structure and overall layout of Web-site.
                 <ul id = "nav" class="nav nav-tabs nav-justified">
                     <li><a href="index.php" style="color: black">Home</a></li>
                     <li><a href="FacultyStaff.php" style="color: black">Faculty&amp;Staff</a></li>
-                    <li><a href="#" style="color: black">Courses</a></li>
+                    <li><a href="Courses.php" style="color: black">Courses</a></li>
                     <li><a href="Clubs.php" style="color: black">Clubs</a></li>
                     <li><a href="Management.php" style="color: black">Management</a></li>
                     <li><a href="jobs.php" style="color: black">Jobs</a></li>
@@ -39,7 +38,7 @@ Skeleton structure and overall layout of Web-site.
                     <?php
                         function get_jobs($search="computer science", $location="pomona") {
                             // initialize job search
-                            $publisher = ""; //publisher ID goes here
+                            $publisher = "3980815013669700";
                             $jobs_url = "http://api.indeed.com/ads/apisearch?publisher=$publisher&q=$search&l=$location&v=2";
 
                             $xml = simplexml_load_file($jobs_url);
