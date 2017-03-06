@@ -39,7 +39,7 @@ Skeleton structure and overall layout of Web-site.
                     <?php
                         function get_jobs($search="computer science", $location="pomona") {
                             // initialize job search
-                            $publisher = "";
+                            $publisher = ""; //publisher ID goes here
                             $jobs_url = "http://api.indeed.com/ads/apisearch?publisher=$publisher&q=$search&l=$location&v=2";
 
                             $xml = simplexml_load_file($jobs_url);
