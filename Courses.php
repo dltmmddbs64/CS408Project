@@ -6,10 +6,10 @@ require 'Controller/CoursesController.php';
 
 $controller = new CoursesController();
 
-if(isset($_POST['pos']))
+if(isset($_POST['types']))
 {
-    //Fille page with faculty and staff of the selected position
-    $table = $controller->CreateTable($_POST['pos']);
+    //Fill page with courses of the selected type
+    $table = $controller->CreateTable($_POST['types']);
 }
 else
 {

@@ -82,7 +82,7 @@ class CoursesController {
                         <th>Description: </th>
                         <td>$course->description</td>
                     </tr>
-                    </table>>";
+                    </table>";
                     
         }
         return $result;

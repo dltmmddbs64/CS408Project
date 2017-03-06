@@ -20,7 +20,7 @@ class CoursesModel {
         mysqli_close($link);
         return $poss;
     }
-    //Get Course objects by their relative number from the database and return them in an array.
+    //Get Course objects by their relative type from the database and return them in an array.
     function GetCoursesByPos($pos) {
         require 'Credentials.php';
         //Open connection and Select database.
@@ -41,6 +41,7 @@ class CoursesModel {
             $courses = new CoursesEntity($id, $pos, $name, $units, $description);
             array_push($courseArray, $courses);
         }
+        //Close connection and return resulting array
         mysqli_close($link);
         return $courseArray;
     }

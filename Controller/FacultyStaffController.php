@@ -127,7 +127,7 @@ class FacultyStaffController
                         <th>Review: </th>
                         <td>$person->review</td>
                     </tr>
-                    </table>>";       
+                    </table>";       
         }
         return $result;
     }
