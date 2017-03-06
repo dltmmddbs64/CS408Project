@@ -17,7 +17,7 @@ Skeleton structure and overall layout of Web-site.
                 <ul id = "nav">
                     <li><a href="index.php">Home</a></li>
                     <li><a href="FacultyStaff.php">Faculty&Staff</a></li>
-                    <li><a href="#">Courses</a></li>
+                    <li><a href="Courses.php">Courses</a></li>
                     <li><a href="Clubs.php">Clubs</a></li>
                     <li><a href="Management.php">Management</a></li>
                 </ul>
