@@ -1,6 +1,6 @@
 <?php
-//AddFacultyStaff page, it display a table that lets the 
-//user to enter info about a new member and adds it to 
+//AddFacultyStaff page, it display a table that lets the
+//user to enter info about a new member and adds it to
 //the existing mySQL. Or if the user selected 'Update',
 //then it shows a slightly different table.
 
@@ -16,77 +16,64 @@ $title = "Add a new Faculty or Staff";
 if(isset($_GET["update"]))
 {
     $person = $controller->GetById($_GET["update"]);
-    $content = "<form action='' method='post'>
+    $content = "<form action='' method='post' class='navbar-form navbar-left'>
     <fieldset>
         <legend>Edit existing Faculty or Staff</legend>
-        <label for='pos'>Position: </label>
-        <select class='inputField' name='ddlPos'>
-            <option value='%'>All</option>"
+        <label for='pos'></label>
+        <select class='btn btn-default dropdown-toggle' name='ddlPos'>
+            <option selected disabled>Select Position</option>"
         .$controller->CreateOptionValues($controller->GetPoss()).
         "</select><br/>
-        
-        <label for='name'>Name: </label>
-        <input type='text' class='inputField' name='txtName' value='$person->name' /><br/>
-        
-        <label for='title'>Title: </label>
-        <input type='text' class='inputField' name='txtTitle' value='$person->title' /><br/>
-        
-        <label for='office'>Office: </label>
-        <input type='text' class='inputField' name='txtOffice' value='$person->office' /><br/>
-        
-        <label for='phone'>Phone: </label>
-        <input type='text' class='inputField' name='txtPhone' value='$person->phone' /><br/>
-        
-        <label for='email'>Email: </label>
-        <input type='text' class='inputField' name='txtEmail' value='$person->email' /><br/>
-        
-        <label for='courses'>Recommend Courses: </label>
-        <input type='text' class='inputField' name='txtCourses' value='$person->courses' /><br/>
-        
-        <label for='review'>Review: </label>
-        <textarea cols='70' row='12' name='txtReview'>$person->review</textarea> <br/>
 
-        <input type='submit' value='Submit'>
-        
+        <input type='text' name='txtName' placeholder='Name' class='form-control' value='$person->name'/>
+
+        <input type='text' name='txtTitle' placeholder='Title' class='form-control' value='$person->title'/>
+
+        <input type='text' name='txtOffice' placeholder='Office' class='form-control' value='$person->office'/>
+
+        <input type='text' name='txtPhone' placeholder='Phone' class='form-control' value='$person->phone'/>
+
+        <input type='text' name='txtEmail' placeholder='Email' class='form-control' value='$person->email'/>
+
+        <input type='text' name='txtCourses' placeholder='Recommended Courses' class='form-control' value='$person->courses'/><br/>
+
+        <textarea cols='70' row='12' name='txtReview' placeholder='Write your review here' class='form-control'>$person->review</textarea><br/>
+
+        <input type='submit' class='btn btn-default' value='Submit'>
+
+
     </fieldset>
 </form>";
 }
 //If the user selected 'Add' from Management page,
 //the user can add a new member.
-else 
+else
 {
-    $content = "<form action='' method='post'>
+    $content = "<form action='' method='post' class='navbar-form navbar-left'>
     <fieldset>
         <legend>Add a new Faculty or Staff</legend>
-        <label for='pos'>Position: </label>
-        <select class='inputField' name='ddlPos'>
-            <option value='%'>All</option>"
+        <label for='pos'></label>
+        <select class='btn btn-default dropdown-toggle' name='ddlPos'>
+            <option selected disabled>Select Position</option>"
         .$controller->CreateOptionValues($controller->GetPoss()).
         "</select><br/>
-        
-        <label for='name'>Name: </label>
-        <input type='text' class='inputField' name='txtName' /><br/>
-        
-        <label for='title'>Title: </label>
-        <input type='text' class='inputField' name='txtTitle' /><br/>
-        
-        <label for='office'>Office: </label>
-        <input type='text' class='inputField' name='txtOffice' /><br/>
-        
-        <label for='phone'>Phone: </label>
-        <input type='text' class='inputField' name='txtPhone' /><br/>
-        
-        <label for='email'>Email: </label>
-        <input type='text' class='inputField' name='txtEmail' /><br/>
-        
-        <label for='courses'>Recommend Courses: </label>
-        <input type='text' class='inputField' name='txtCourses' /><br/>
-        
-        <label for='review'>Review: </label>
-        <textarea cols='70' row='12' name='txtReview'></textarea><br/>
 
-        <input type='submit' value='Submit'>
-        
+        <input type='text' name='txtName' placeholder='Name' class='form-control'/>
+
+        <input type='text' name='txtTitle' placeholder='Title' class='form-control'/>
+
+        <input type='text' name='txtOffice' placeholder='Office' class='form-control'/>
+
+        <input type='text' name='txtPhone' placeholder='Phone' class='form-control'/>
+
+        <input type='text' name='txtEmail' placeholder='Email' class='form-control'/>
+
+        <input type='text' name='txtCourses' placeholder='Recommended Courses' class='form-control'/><br/>
+
+        <textarea cols='70' row='12' name='txtReview' placeholder='Write your review here' class='form-control'></textarea><br/>
+
+        <input type='submit' class='btn btn-default' value='Submit'>
+
     </fieldset>
 </form>";
 }

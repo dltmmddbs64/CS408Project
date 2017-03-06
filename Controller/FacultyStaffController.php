@@ -4,7 +4,7 @@ function showConfirm(id)
 {
     //Build the confirmation box
     var c = confirm("Are you sure you wish to delete?");
-    
+
     //If true, delete it and refresh.
     if(c)
         window.location = "FacultyStaffOverview.php?delete=" + id;
@@ -16,76 +16,76 @@ function showConfirm(id)
 require ("Model/FacultyStaffModel.php");
 
 //Contains non-database related function for the FacultyStaff page.
-class FacultyStaffController 
+class FacultyStaffController
 {
     //Creates overview table that is displayed on FacultyStaffOverview page.
     //Shows a brief info.
     function CreateOverviewTable()
     {
-        $result = ""
-                . "<table class='overViewTable'>"
+        $result = "<div class='row'>"
+                . "<table class='table table-bordered'>"
                 . "     <tr>"
-                . "         <td></td>"
-                . "         <td></td>"
-                . "         <td><b>ID</b></td>"
-                . "         <td><b>Position</b></td>"
-                . "         <td><b>Name</b></td>"
-                . "         <td><b>Title</b></td>"
-                . "         <td><b>Office</b></td>"
-                . "         <td><b>Email</b></td>"
+                . "         <td class='col-md-1 col-sm-1'></td>"
+                . "         <td class='col-md-1 col-sm-1'></td>"
+                . "         <td class='col-md-2 col-sm-2'><b>ID</b></td>"
+                . "         <td class='col-md-2 col-sm-2'><b>Position</b></td>"
+                . "         <td class='col-md-2 col-sm-2'><b>Name</b></td>"
+                . "         <td class='col-md-2 col-sm-2'><b>Title</b></td>"
+                . "         <td class='col-md-2 col-sm-2'><b>Office</b></td>"
+                . "         <td class='col-md-2 col-sm-2'><b>Email</b></td>"
                 . "     </tr>";
-                
+
         $personArray = $this->GetByPos('%');
 
         foreach ($personArray as $key => $value)
         {
-            $result = $result . 
+            $result = $result .
                     "<tr> "
-                    . "     <td><a href='AddFacultyStaff.php?update=$value->id'>Update</a></td>"
-                    . "     <td><a href='#' onclick='showConfirm($value->id)'>Delete</a></td>"
-                    . "     <td>$value->id</td>"
-                    . "     <td>$value->pos</td>"
-                    . "     <td>$value->name</td>"
-                    . "     <td>$value->title</td>"
-                    . "     <td>$value->office</td>"
-                    . "     <td>$value->email</td>"  
-             
+                    . "     <td class='col-md-1 col-sm-1'><a href='AddFacultyStaff.php?update=$value->id'>Update</a></td>"
+                    . "     <td class='col-md-1 col-sm-1'><a href='#' onclick='showConfirm($value->id)'>Delete</a></td>"
+                    . "     <td class='col-md-2 col-sm-2'>$value->id</td>"
+                    . "     <td class='col-md-2 col-sm-2'>$value->pos</td>"
+                    . "     <td class='col-md-2 col-sm-2'>$value->name</td>"
+                    . "     <td class='col-md-2 col-sm-2'>$value->title</td>"
+                    . "     <td class='col-md-2 col-sm-2'>$value->office</td>"
+                    . "     <td class='col-md-2 col-sm-2'>$value->email</td>"
+
                     . "</tr>";
         }
-        
-        $result = $result . "</table>";
+
+        $result = $result . "</table></div>";
         return $result;
     }
-    
+
     //Dropdown list for positions: All, Permenant Faculty, Lecturers, and Staff.
-    function CreateFacultyStaffDropdownList() 
+    function CreateFacultyStaffDropdownList()
     {
         $personModel = new FacultyStaffModel();
-        $result = "<form action = '' method = 'post' width = '200px'>
-                    Please select a position:
-                    <select name = 'pos' >
-                        <option value = '%' >All</option>
+        $result = "<div class='row'>
+                <div class='col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4'><form action = '' method = 'post' class='navbar-form navbar-left'>
+                    <select name = 'pos' class='btn btn-default dropdown-toggle'>
+                        <option value = '%' selected disabled>Select Position</option>
                         ".$this->CreateOptionValues($personModel->GetFacultyStaffPoss()).
                     "</select>
-                    <input type = 'submit' value = 'Search' />
-                  </form>";
-                
+                    <input type = 'submit' value = 'Search' class='btn btn-default'/>
+                  </form></div></div>";
+
         return $result;
     }
-    
+
     //Returns every element of an array.
     function CreateOptionValues(array $valueArray)
     {
         $result = "";
-        
+
         foreach ($valueArray as $value)
         {
             $result = $result . "<option value = '$value'>$value</option>";
         }
-        
+
         return $result;
     }
-    
+
     //Creates table for FacultyStaff page.
     //Shows every info.
     function CreateTable($poss)
@@ -93,12 +93,12 @@ class FacultyStaffController
         $personModel = new FacultyStaffModel();
         $array = $personModel->GetFacultyStaffByPos($poss);
         $result = "";
-        
+
         //Generate a table for each facultystaffEntity in array.
         foreach ($array as $key => $person)
         {
             $result = $result .
-                    "<table class = 'table'>
+                    "<table class = 'table table-bordered'>
                     <tr>
                         <th width = '75px' >Name: </th>
                         <td>$person->name</td>
@@ -127,11 +127,11 @@ class FacultyStaffController
                         <th>Review: </th>
                         <td>$person->review</td>
                     </tr>
-                    </table>>";       
+                    </table>";
         }
         return $result;
     }
-    
+
     //Insert a new member to mySQL.
     function Insert()
     {
@@ -143,12 +143,12 @@ class FacultyStaffController
         $email = $_POST["txtEmail"];
         $courses = $_POST["txtCourses"];
         $review = $_POST["txtReview"];
-        
+
         $person = new FacultyStaffEntity(-1, $pos, $name, $title, $office, $phone, $email, $courses, $review);
         $personModel = new FacultyStaffModel();
         $personModel->Insert($person);
     }
-    
+
     //Update an existing member of mySQL.
     function Update($id)
     {
@@ -160,38 +160,38 @@ class FacultyStaffController
         $email = $_POST["txtEmail"];
         $courses = $_POST["txtCourses"];
         $review = $_POST["txtReview"];
-        
+
         $person = new FacultyStaffEntity($id, $pos, $name, $title, $office, $phone, $email, $courses, $review);
         $personModel = new FacultyStaffModel();
         $personModel->Update($id, $person);
     }
-    
+
     //Delete an existing member of mySQL.
     function Delete($id)
     {
         $personModel = new FacultyStaffModel();
         $personModel->Delete($id);
     }
-    
+
     //Returns corresponding member with that ID number.
     function GetById($id)
     {
         $personModel = new FacultyStaffModel();
         return $personModel->GetFacultyStaffById($id);
     }
-    
+
     //Returns every memeber with that position.
     function GetByPos($pos)
     {
         $personModel = new FacultyStaffModel();
         return $personModel->GetFacultyStaffByPos($pos);
     }
-    
+
     //Returns every position.
     function GetPoss()
     {
         $personModel = new FacultyStaffModel();
         return $personModel->GetFacultyStaffPoss();
-    }   
+    }
 }
 ?>

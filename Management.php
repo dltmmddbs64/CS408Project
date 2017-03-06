@@ -4,9 +4,9 @@
 
 $title = "Management";
 
-$content = '<h3>FacultyStaff</h3>
-            <a href="AddFacultyStaff.php">Add new Faculty or Staff</a><br/>
-            <a href="FacultyStaffOverview.php">Faculty&Staff Overview</a><br/>';
+$content = '<div style="text-align: center;"><h3>FacultyStaff</h3>
+            <a href="AddFacultyStaff.php" class="btn btn-default">Add new Faculty or Staff</a><br/>
+            <a href="FacultyStaffOverview.php" class="btn btn-default">Faculty&Staff Overview</a><br/></div>';
 
 include 'Template.php';
 ?>
